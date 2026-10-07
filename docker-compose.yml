@@ -1,16 +1,17 @@
 services:
-  app:
-    image: node:22-alpine
+  weather-app:
+    build: .
     container_name: ${APP_NAME}
-    working_dir: /app
-    command: npm run dev
     env_file: .env
     environment:
+      # Reliable file watching (hot reload) on Windows/macOS bind mounts
       CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
     ports:
       - "${APP_PORT}:${CONTAINER_PORT}"
     volumes:
       - .:/app
+      # Separate volume: keeps Linux-built node_modules out of the host bind mount
       - node_modules:/app/node_modules
 
 volumes:
