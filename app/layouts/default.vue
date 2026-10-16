@@ -15,7 +15,8 @@ watch(() => route.fullPath, () => {
   <div class="flex min-h-screen flex-col">
     <header class="border-b border-slate-200 bg-white">
       <nav class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <NuxtLink to="/" class="text-lg font-semibold text-sky-600">
+        <NuxtLink to="/" class="flex items-center gap-2 text-lg font-semibold text-sky-600">
+          <AppLogo class="h-8 w-8" aria-hidden="true" />
           Weather App
         </NuxtLink>
 

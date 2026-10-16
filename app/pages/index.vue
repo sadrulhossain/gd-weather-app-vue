@@ -5,6 +5,14 @@ const { city, weather, loading, error } = storeToRefs(store)
 
 <template>
   <div class="space-y-6">
+    <header class="flex items-center gap-4">
+      <AppLogo class="h-14 w-14 shrink-0 sm:h-16 sm:w-16" />
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Weather App</h1>
+        <p class="text-slate-600">Current conditions and a 5-day forecast for any city.</p>
+      </div>
+    </header>
+
     <div class="flex flex-col gap-3 sm:flex-row sm:items-start">
       <div class="flex-1">
         <CitySearch @select="store.selectCity" />
