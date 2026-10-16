@@ -65,6 +65,45 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   }
 
+  // Favourites and unit are stored in the browser. They are loaded by hydrate() after
+  // mount, never during setup, so the first client render matches the server HTML.
+  const favourites = ref<GeocodeResult[]>([])
+  const hydrated = ref(false)
+
+  function hydrate() {
+    if (hydrated.value) return
+    unit.value = readStorage(STORAGE_KEYS.unit, parseUnit, 'celsius')
+    favourites.value = readStorage(STORAGE_KEYS.favourites, parseFavourites, [])
+    hydrated.value = true
+  }
+
+  // Saving only starts once hydrated, otherwise the empty defaults would overwrite stored data
+  watch(favourites, (list) => {
+    if (hydrated.value) writeStorage(STORAGE_KEYS.favourites, list)
+  }, { deep: true })
+
+  watch(unit, (value) => {
+    if (hydrated.value) writeStorage(STORAGE_KEYS.unit, value)
+  })
+
+  const isFavourite = (id: number) => favourites.value.some(item => item.id === id)
+
+  const canAddFavourite = computed(() => favourites.value.length < MAX_FAVOURITES)
+
+  function addFavourite(selected: GeocodeResult) {
+    if (isFavourite(selected.id) || !canAddFavourite.value) return
+    favourites.value.push({ ...selected })
+  }
+
+  function removeFavourite(id: number) {
+    favourites.value = favourites.value.filter(item => item.id !== id)
+  }
+
+  function toggleFavourite(selected: GeocodeResult) {
+    if (isFavourite(selected.id)) removeFavourite(selected.id)
+    else addFavourite(selected)
+  }
+
   function setUnit(next: TemperatureUnit) {
     unit.value = next
   }
@@ -82,8 +121,9 @@ export const useWeatherStore = defineStore('weather', () => {
   }
 
   return {
-    city, weather, loading, error, unit,
-    unitSymbol, current, forecast,
-    selectCity, fetchWeather, setUnit, toggleUnit, reset
+    city, weather, loading, error, unit, favourites, hydrated,
+    unitSymbol, current, forecast, canAddFavourite,
+    selectCity, fetchWeather, setUnit, toggleUnit, reset,
+    hydrate, isFavourite, addFavourite, removeFavourite, toggleFavourite
   }
 })
