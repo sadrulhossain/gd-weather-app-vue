@@ -24,6 +24,7 @@ The app is built in segments. Do only the segment the user has asked for; don't 
 | 5 | Weather store and debounced city search composable | `feature/weather-store-search` | Done |
 | 6 | Dashboard interface (search, current card, forecast, states) | `feature/dashboard-interface` | Done |
 | 7 | Saved cities and unit preference persisted in localStorage | `feature/persist-favourites` | Done |
+| 8 | Finalise README and add MIT LICENSE | `feature/finalise-readme` | Done |
 
 - The user will provide instructions for each next segment once the previous one is done. Don't assume what comes next.
 - Before starting a new segment, update `main` (`git checkout main && git pull`), then create a branch from it named `feature/<feature-name-in-kebab-case>`.
