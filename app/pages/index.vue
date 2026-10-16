@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const store = useWeatherStore()
 const { city, weather, loading, error } = storeToRefs(store)
+
+// Browser-only data is loaded after mount so the first render matches the server HTML
+onMounted(() => store.hydrate())
 </script>
 
 <template>
@@ -19,6 +22,8 @@ const { city, weather, loading, error } = storeToRefs(store)
       </div>
       <UnitToggle />
     </div>
+
+    <FavouriteCities />
 
     <WeatherSkeleton v-if="loading" />
 
