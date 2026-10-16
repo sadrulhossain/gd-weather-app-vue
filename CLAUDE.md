@@ -19,6 +19,7 @@ The app is built in segments. Do only the segment the user has asked for; don't 
 | 0 | Initial project directory setup | initial `main` | Done |
 | 1 | Docker, Nuxt, and Git foundation | `feature/docker-nuxt-git-foundation` | Done |
 | 2 | Tailwind CSS v4, Pinia, default layout with responsive navbar | `feature/tailwind-css-pinia` | Done |
+| 3 | Initial README | `feature/initial-readme` | Done |
 
 - The user will provide instructions for each next segment once the previous one is done. Don't assume what comes next.
 - Before starting a new segment, update `main` (`git checkout main && git pull`), then create a branch from it named `feature/<feature-name-in-kebab-case>`.
