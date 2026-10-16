@@ -4,7 +4,7 @@ const FORECAST_URL = 'https://api.open-meteo.com/v1/forecast'
 // Fetch from Open-Meteo and map failures to clean HTTP errors for our own clients
 export async function openMeteoFetch<T>(url: string, query: Record<string, string | number>): Promise<T> {
   try {
-    return await $fetch<T>(url, { query, timeout: 8000 })
+    return await $fetch(url, { query, timeout: 8000 }) as T
   } catch (error: any) {
     const status = error?.response?.status
     // Open-Meteo answers 400 for bad parameters; anything else is the upstream's fault
